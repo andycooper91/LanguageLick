@@ -1,0 +1,28 @@
+
+<h3>Read articles...</h3>
+<br>
+{% for headline,article_id in articles %}
+    <div>
+    <a href="/{{ article_id }}">{{ headline }}</a>
+    </div>
+{% endfor %}
+
+<br>
+<br>
+
+
+
+<h3>Or review vocab!</h3>
+<table border=1>
+<tr>
+    <th>Spanish Phrase</th>
+    <th>English Translation</th>
+</tr>
+
+{% for from_phrase,to_phrase in translation_data  %}
+<tr>
+    <td>{{ from_phrase }}</td>
+    <td>{{ to_phrase }}</td>
+</tr>
+{% endfor %}
+</table>

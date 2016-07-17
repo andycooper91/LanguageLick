@@ -1,0 +1,82 @@
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+function insertDatabase(){
+    var from_text;
+    var to_text;
+    from_text = document.getElementById('fromText').innerHTML;
+    to_text = document.getElementById('toText').innerHTML;
+    var data = {fromText:from_text,toText:to_text};
+
+    $.getJSON('/insert/',data);
+
+
+    document.getElementById('saveButton').disabled = true;
+}
+
+
+</script>
+
+
+</head>
+
+<body>
+<a href="/vocab">Review Saved Vocab</a>
+<br>
+<h4>Other available articles:</h4>
+{% for headline,article_id in articles %}
+    <div>
+    <a href="/{{ article_id }}">{{ headline }}</a>
+    </div>
+{% endfor %}
+<div>.</div>
+<div>.</div>
+
+
+<div id="fromText">From Text</div>
+<div id="toText">To Text</div>
+<button onclick="runTranslation()">Translate</button>
+<button id="saveButton" onclick="insertDatabase()" disabled>Save</button>
+
+<h1>{{ title }}</h1>
+<h2>{{ author }}</h2>
+<h3>{{ date }}</h3>
+<p>{{ text }}</p>
+
+
+   <script>
+      function translateText(response) {
+        document.getElementById("toText").innerHTML = response.data.translations[0].translatedText;
+      }
+
+	function getSourceText() {
+    	var text = "";
+    	if (window.getSelection) {
+        	text = window.getSelection().toString();
+    	} else if (document.selection && document.selection.type != "Control") {
+        	text = document.selection.createRange().text;
+    	}
+    	//document.getElementById("toText").innerHTML = text;
+	return text;
+	}
+	
+    </script>
+    <script>
+	function runTranslation(){
+      var newScript = document.createElement('script');
+      newScript.type = 'text/javascript';
+      var sourceText = getSourceText();
+      // WARNING: Your API key will be visible in the page source.
+      // To prevent misuse, restrict your key to designated domains or use a
+      // proxy to hide your key.
+    document.getElementById("fromText").innerHTML = sourceText;      
+    var source = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyB0d_mbeNesY6dHLTEHzWGvhiFLzJHct2s&source=es&target=en&callback=translateText&q=' + sourceText;
+      newScript.src = source;
+
+      document.getElementsByTagName('head')[0].appendChild(newScript);
+        document.getElementById('saveButton').disabled = false;
+}
+
+    </script>
+
+</body>

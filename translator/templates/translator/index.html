@@ -1,0 +1,11 @@
+<h1>Welcome! Please select an article to read!</h1>
+
+{% for headline,article_id in articles %}
+    <div>
+    <a href="/{{ article_id }}">{{ headline }}</a>
+    </div>
+{% endfor %}
+
+<br>
+<br>
+<h1><a href="/vocab">...Or Review Saved Vocabulary!</a></h1>

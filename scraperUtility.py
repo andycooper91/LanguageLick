@@ -115,7 +115,7 @@ for link in links:
         continue
     else:
         try:
-            article_obj = Article(headline=title,date_added=datetime.datetime.utcnow(),file_name=str(doc_id)+".txt",article_source=source,good_file=True)
+            article_obj = Article(headline=title,date_added=datetime.datetime.utcnow(),article_source=source,good_file=True)
             article_obj.save()
         except Exception:
             print("Failed to create DB object: "+link[2])
@@ -123,6 +123,8 @@ for link in links:
             print(traceback.format_exc())
             continue
         doc_id = article_obj.id
+        article_obj.file_name=str(doc_id)+".txt"
+        article_obj.save()
         with codecs.open("translator/texts/"+str(doc_id)+".txt", "w", "ISO-8859-1") as textfile:
             try:            
                 textfile.write(title)

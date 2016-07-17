@@ -8,7 +8,7 @@ from .models import *
 import datetime
 
 def index(request):
-    art = Article.objects.all()
+    art = Article.objects.all().order_by('-id')[:15]
     articles = []
     for a in art:
         articles.append((a.headline,a.pk))
@@ -23,7 +23,7 @@ def article(request, article_id):
     #module_dir = os.path.dirname(__file__)
     #file_path = os.path.join(module_dir, '/texts/1.txt')
     #print module_dir
-    art = Article.objects.all().exclude(pk=article_id)
+    art = Article.objects.all().exclude(pk=article_id).order_by('-id')[:14]
     articles = []
     for a in art:
         articles.append((a.headline,a.pk))
@@ -59,7 +59,7 @@ def vocab(request):
         translation_data.append((t.from_phrase.phrase,t.to_phrase.phrase))
         count += 1
         
-    art = Article.objects.all()
+    art = Article.objects.all().order_by('-id')[:15]
     articles = []
     for a in art:
         articles.append((a.headline,a.pk))

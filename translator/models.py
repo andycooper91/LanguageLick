@@ -30,6 +30,6 @@ class Translation(models.Model):
 class Article(models.Model):
     headline = models.CharField(max_length=200)
     date_added = models.DateTimeField('date added')
-    file_name = models.CharField(max_length=200)
+    file_name = models.CharField(max_length=200,blank=True,null=True,default=None)
     article_source = models.CharField(max_length=200)
     good_file = models.BooleanField(default=True)

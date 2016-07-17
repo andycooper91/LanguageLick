@@ -31,3 +31,5 @@ class Article(models.Model):
     headline = models.CharField(max_length=200)
     date_added = models.DateTimeField('date added')
     file_name = models.CharField(max_length=200)
+    article_source = models.CharField(max_length=200)
+    good_file = models.BooleanField(default=True)
